@@ -1,11 +1,11 @@
 import unittest
-import portfolioHomework
+import portfolioHW
 
 class portfolioTest(unittest.TestCase):
 
     def testCashBalance(self):
 
-        portfolio = Portfolio()
+        portfolio = portfolioHW.Portfolio()
         portfolio.addCash(500)
         portfolio.withdrawCash(200)
 
