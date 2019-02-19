@@ -78,7 +78,7 @@ class Portfolio():
     def sellStock(self, symbol, amount):
         if symbol in self.stocks.keys():
             # Stock is present in the inventory
-            if int(self.stocks[symbol]) > amount:
+            if self.stocks[symbol] > amount:
                 # Sell order is applicaple
                 self.stocks[symbol] = self.stocks[symbol] - amount
                 # Add the price to the cash balance
@@ -114,7 +114,7 @@ class Portfolio():
     def sellMutualFund(self, symbol, amount):
         if symbol in self.mutualFunds.keys():
             # Stock is present in the inventory
-            if int(self.mutualFunds[symbol]) > amount:
+            if self.mutualFunds[symbol] > amount:
                 # Sell order is applicaple
                 self.mutualFunds[symbol] = self.mutualFunds[symbol] - amount
                 # Add the price to the cash balance
