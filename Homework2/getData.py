@@ -13,6 +13,7 @@ def getData():
     data = pd.concat([x, y], axis = 1)
     # Drop the NaN values
     data = data.dropna(axis=0, how='any')
-    return data
-
-# Write the data to csv file
+    data.columns = ["gdp", "urbanPop"]
+    x = data["gdp"].tolist()
+    y = data["urbanPop"].tolist()
+    return (x, y)

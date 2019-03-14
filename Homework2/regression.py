@@ -3,8 +3,11 @@ import pandas as pd
 import matplotlib.pyplot as pyplot
 
 # Function to get beta0 and beta1 values of simple linear regression
-def getRegressionCoefficients(x, y):
+def getRegressionCoefficients(xList, yList):
 
+    # Convert list to numpy arrays
+    x = np.array(xList)
+    y = np.array(yList)
     # To regress, least squares method is used. Formula can be found at:
     # https://en.wikipedia.org/wiki/Least_squares
 
@@ -23,13 +26,15 @@ def getRegressionCoefficients(x, y):
     return (beta0, beta1)
 
 # For visual aid, a function to plot the graph with regression line
-def plotRegressionGraph(x, y, beta):
+def plotRegressionGraph(xList, yList, beta0, beta1):
     # Plot the data points
+    x = np.array(xList)
+    y = np.array(yList)
     pyplot.scatter(x, y, color = "b", marker = "o", s = 30)
     # Get the estimated values
-    yEstimate = beta[0] + beta[1]*x
+    yEstimate = beta0 + beta1*x
     # Plot the regression line
     pyplot.plot(x, yEstimate, color = "r")
-    pyplot.xlabel('x')
-    pyplot.ylabel('y')
-    plt.show()
+    pyplot.xlabel('GDP Per Capita (Current US$)')
+    pyplot.ylabel('Urban population (% of total)')
+    pyplot.show()
