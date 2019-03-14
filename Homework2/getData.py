@@ -16,4 +16,5 @@ def getData():
     data.columns = ["gdp", "urbanPop"]
     x = data["gdp"].tolist()
     y = data["urbanPop"].tolist()
+    # To get more beautiful result, adjust the x
     return (x, y)

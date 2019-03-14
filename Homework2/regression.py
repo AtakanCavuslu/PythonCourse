@@ -1,9 +1,10 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as pyplot
+import math
 
-# Function to get beta0 and beta1 values of simple linear regression
-def getRegressionCoefficients(xList, yList):
+# Function to get alpha and beta values of simple linear regression
+def getRegressionResults(xList, yList):
 
     # Convert list to numpy arrays
     x = np.array(xList)
@@ -20,19 +21,30 @@ def getRegressionCoefficients(xList, yList):
     SSxy = np.sum(y*x) - n*yBar*xBar
     SSxx = np.sum(x*x) - n*xBar*xBar
     # Calculate regression coeefficients
-    beta1 = SSxy/SSxx
-    beta0 = yBar - beta1*xBar
+    beta = SSxy/SSxx
+    alpha = yBar - beta*xBar
 
-    return (beta0, beta1)
+    # Get the estimated values of y
+    yEstimate = alpha + beta*x
+
+    # Calculate regression standard error of beta
+    stdErrorSquared = np.sum(np.square(yEstimate - y)) / ((n-2)*np.sum(np.square(x - xBar)))
+    standardError = math.sqrt(stdErrorSquared)
+
+    # Calculate the 0.95 CI bounds for beta
+    lowerBound = beta - 1.96*standardError
+    upperBound = beta + 1.96*standardError
+
+    return (alpha, beta, standardError, lowerBound, upperBound)
 
 # For visual aid, a function to plot the graph with regression line
-def plotRegressionGraph(xList, yList, beta0, beta1):
+def plotRegressionGraph(xList, yList, alpha, beta):
     # Plot the data points
     x = np.array(xList)
     y = np.array(yList)
     pyplot.scatter(x, y, color = "b", marker = "o", s = 30)
     # Get the estimated values
-    yEstimate = beta0 + beta1*x
+    yEstimate = alpha + beta*x
     # Plot the regression line
     pyplot.plot(x, yEstimate, color = "r")
     pyplot.xlabel('GDP Per Capita (Current US$)')
